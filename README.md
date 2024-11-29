@@ -12,7 +12,7 @@
 ## Why this project?
 
 > [!WARNING]
-> *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/HERE)), 部分内容可能有争议/错误, 请勿开骂qwq*; and: 自动登录还没写(, ~~明天(x)~~ 待会一定补上
+> *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容可能有争议/错误, 请勿开骂qwq*; and: 自动登录还没写(, ~~明天(x)~~ 待会一定补上
 
 Serv00 自动续期有两种方案:
 
