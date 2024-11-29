@@ -34,22 +34,6 @@ def log(loginfo='', ip='(ip)', path='/(path)'):
         f.write(f'\n{"-"*16}\n[{datetime.now()}] [{ip}] {path}\n{loginfo}')
 
 
-# ---------- configs start
-# 访问用 key
-# DAEMON_KEY = load_key(expanduser('~/daemon.key'))
-# DAEMON_KEY = 'DaemonKey_Placeholder'
-# # 启动命令
-# # DAEMON_COMMAND = 'pm2 resurrect'
-# DAEMON_COMMAND = 'DaemonCommand_Placeholder'
-# # 日志文件 (包含用户目录时请用 expanduser() 扩展)
-# # LOG_FILE = expanduser('~/daemon.log')
-# LOG_FILE = 'LogFile_Placeholder'
-# # 伪装用根目录返回 (默认: Welcome to Nginx)
-# INDEX_HTML = '''
-# '''
-# ---------- configs end
-
-
 with open(LOG_FILE, 'w', encoding='utf-8') as f:
     f.write('')  # 以写入模式打开文件，清空 log 内容
 
@@ -78,13 +62,13 @@ def daemon(key):
             # 使用 subprocess.PIPE 捕获输出
             callproc = subprocess.Popen(DAEMON_COMMAND, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = callproc.communicate()  # 获取输出和错误信息
-            stdout = stdout.decode("utf-8").replace('\n', r)
-            stderr = stderr.decode("utf-8").replace('\n', r)
+            stdout = stdout.decode("utf-8")
+            stderr = stderr.decode("utf-8")
             ret += f'ProcessStatus: {r}'
             # 使用 returncode 获取进程返回状态
             ret += f'- running: {callproc.returncode}{r}'
             ret += f'- pid: {callproc.pid}{r}'
-            ret += f'Output:{r}---{r}{stdout}{r}'  # 将输出解码为字符串
+            ret += f'Output:{r}---{r}<pre>{stdout}</pre>{r}'  # 将输出解码为字符串
             if stderr:
                 # 将错误信息解码为字符串
                 ret += f'---{r}Error: {stderr}{r}'
@@ -96,7 +80,7 @@ def daemon(key):
         if key != DAEMON_KEY:
             ret += f'{r}Incorrect Key!'
     log(loginfo=ret, ip=request.remote_addr, path='/daemon')
-    return ret.replace(' ', '&nbsp;')
+    return ret
 
 
 if __name__ == "__main__":

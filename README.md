@@ -25,7 +25,10 @@ pm2 --version
 ## 安装
 
 ```shell
-wget -O daemon.zip https://github.com/siiway/serv00-daemon/archive/refs/heads/main.zip # 下载本 repo
-unzip daemon.zip # 解压
-cp main/app/* ~/
+wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-daemon.py && python3 install-daemon.py && rm install-daemon.py
 ```
+
+> 不会自动安装 pm2
+
+## 继续
+
