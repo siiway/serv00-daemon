@@ -7,6 +7,9 @@ from os.path import expanduser
 import subprocess
 from datetime import datetime
 
+from index import *
+from config import *
+
 app = Flask(__name__)
 r = '<br\>\n'  # html 换行
 
@@ -29,42 +32,23 @@ def log(loginfo='', ip='(ip)', path='/(path)'):
     :param path: 请求路径
     '''
     with open(LOG_FILE, 'a', encoding='utf-8') as f:
-        f.write(f'\n{"-"*16}\n[{datetime.now()}] [{ip}]\n{loginfo}')
+        f.write(f'\n{"-"*16}\n[{datetime.now()}] [{ip}] {path}\n{loginfo}')
 
 
+# ---------- configs start
 # 访问用 key
-DAEMON_KEY = load_key(expanduser('~/daemon.key'))
-# 启动命令
-DAEMON_COMMAND = 'pm2 resurrect'
-# 日志文件 (包含用户目录时请用 expanduser() 扩展)
-LOG_FILE = expanduser('~/daemon.log')
-# 伪装用根目录返回 (默认: Welcome to Nginx)
-INDEX_HTML = '''<!DOCTYPE html>
-<html>
-<head>
-<title>Welcome to nginx!</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
-</head>
-<body>
-<h1>Welcome to nginx!</h1>
-<p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
-
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
-
-<p><em>Thank you for using nginx.</em></p>
-</body>
-</html>
-'''
+# DAEMON_KEY = load_key(expanduser('~/daemon.key'))
+# DAEMON_KEY = 'DaemonKey_Placeholder'
+# # 启动命令
+# # DAEMON_COMMAND = 'pm2 resurrect'
+# DAEMON_COMMAND = 'DaemonCommand_Placeholder'
+# # 日志文件 (包含用户目录时请用 expanduser() 扩展)
+# # LOG_FILE = expanduser('~/daemon.log')
+# LOG_FILE = 'LogFile_Placeholder'
+# # 伪装用根目录返回 (默认: Welcome to Nginx)
+# INDEX_HTML = '''
+# '''
+# ---------- configs end
 
 
 with open(LOG_FILE, 'w', encoding='utf-8') as f:
@@ -73,12 +57,18 @@ with open(LOG_FILE, 'w', encoding='utf-8') as f:
 
 @app.route("/")
 def index():
+    '''
+    伪装根目录
+    '''
     log(loginfo='Show Index Page', ip=request.remote_addr, path='/')
     return INDEX_HTML
 
 
 @app.route('/daemon/<key>', methods=['GET', 'HEAD'])
 def daemon(key):
+    '''
+    此处调起 pm2
+    '''
     ret = '<!DOCTYPE HTML>\nServ00 Daemon Script'
     ret += f'{r}By wyf9, All rights Reserved.{r}{r}'
     if key != DAEMON_KEY:
@@ -87,8 +77,7 @@ def daemon(key):
         ret += f'DaemonCommand: {DAEMON_COMMAND}{r}'
         try:
             # 使用 subprocess.PIPE 捕获输出
-            callproc = subprocess.Popen(
-                DAEMON_COMMAND, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            callproc = subprocess.Popen(DAEMON_COMMAND, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = callproc.communicate()  # 获取输出和错误信息
             stdout = stdout.decode("utf-8").replace('\n', r)
             stderr = stderr.decode("utf-8").replace('\n', r)
