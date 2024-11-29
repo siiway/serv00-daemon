@@ -1,3 +1,22 @@
-val="cmVhZCAtcCAi56Gu5a6a5a6J6KOFIHBtMj8gKEVudGVyOiDnoa7orqQvXkM6IOWPlua2iCkiIGN0bgplY2hvICLlvIDlp4vlronoo4UuLi4iCmVjaG8KZWNobyAiLS0tIgpta2RpciAtcCB+Ly5ucG0tZ2xvYmFsICYmIG5wbSBjb25maWcgc2V0IHByZWZpeCBcJ34vLm5wbS1nbG9iYWxcJyAmJiBlY2hvIFwnZXhwb3J0IFBBVEg9fi8ubnBtLWdsb2JhbC9iaW46JFBBVEhcJyA+Pn4vLnByb2ZpbGUgJiYgc291cmNlIH4vLnByb2ZpbGUgJiYgbnBtIGluc3RhbGwgLWcgcG0yICYmIHNvdXJjZSB+Ly5wcm9maWxlCmVjaG8gIi0tLSIKZWNobwplY2hvICJwbTIg5oiQ5Yqf5a6J6KOF77yM5pat5byAIFNTSCDov57mjqXlkI7ph43ov57nlJ/mlYjjgILor7fkuI3opoHliKDpmaTmiJbopobnm5Ygfi8ucHJvZmlsZSDphY3nva7mlofku7YiCmVjaG8KZWNobyAi5b2i5aaCIG5wbSBlcnJvciBjb25maWcgcHJlZml4IGNhbm5vdCBiZSBjaGFuZ2VkIGZyb20gcHJvamVjdCBjb25maWcg55qE5pel5b+X5LiN5Lya5b2x5ZONIHBtMiDnmoTkvb/nlKjvvIzor7fml6DpnIDlnKjmhI/jgIIiCmVjaG8KZWNobyAi5oqE6KKt5LiU5LiN5qCH5rOo5Ye65aSE5Y+v6IC777yBIgplY2hvCmVjaG8gIuivt+iupOWHhuWOn+S9nOiAhe+8mmh0dHBzOi8vc2Fpa2EudXMua2cvIgplY2hvCmVjaG8gIi0tLSB1c2VkIGJ5IGh0dHBzOi8vZ2l0aHViLmNvbS9zaWl3YXkvc2VydjAwLWRhZW1vbiIKZWNobyAiMC4g6Jm954S25L2G5piv77yM5oiR5Lmf5LiN55+l6YGT5Y6f5L2c6ICFIFNhaWthIOS4uuS7gOS5iOimgeWKoOS4gOS4qiBiYXNlNjQgZW5jcnlwdCAo6Ziy5ZCb5a2Q5LiN6Ziy5bCP5Lq6KCggLS0gd3lmOSIKZWNobyAiMS4g6aaW5YWI5oiR5LiN5piv5bCP5Lq6IgplY2hvICIyLiDotLTkuIrku6PnoIEgYmxvYjogaHR0cHM6Ly9naXRodWIuY29tL2swYmF5YS9hbGlzdF9yZXBsL2Jsb2IvbWFpbi9zZXJ2MDAvaW5zdGFsbC1wbTIuc2giCmVjaG8K"
-
-eval "$(echo -n "$val" | base64 --decode)"
+# Original From: https://github.com/k0baya/alist_repl/blob/main/serv00/install-pm2.sh
+read -p "确定安装 pm2? (Enter: 确认/^C: 取消)" ctn
+echo "开始安装..."
+echo
+echo "---"
+mkdir -p ~/.npm-global && npm config set prefix '~/.npm-global' && echo 'export PATH=~/.npm-global/bin:$PATH' >>~/.profile && source ~/.profile && npm install -g pm2 && source ~/.profile
+echo "---"
+echo
+echo "pm2 成功安装，断开 SSH 连接后重连生效。请不要删除或覆盖 ~/.profile 配置文件"
+echo
+echo "形如 npm error config prefix cannot be changed from project config 的日志不会影响 pm2 的使用，请无需在意。"
+echo
+echo "抄袭且不标注出处可耻！"
+echo
+echo "请认准原作者：https://saika.us.kg/"
+echo
+echo "--- used by https://github.com/siiway/serv00-daemon"
+echo "0. 虽然但是，我也不知道原作者 Saika 为什么要加一个 base64 encrypt (防君子不防小人?)"
+echo "1. 首先我不是小人 ↓"
+echo "2. ↑ 贴上代码 blob: https://github.com/k0baya/alist_repl/blob/main/serv00/install-pm2.sh"
+echo "3. 整了大半天还是搞不明白为什么 base64 解出来是 PATH 变量名, 但下载执行就变成了自己服务器的 PATH, 所以---我决定不用 base64 了 :( -- wyf9"
+echo
