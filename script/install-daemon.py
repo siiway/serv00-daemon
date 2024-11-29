@@ -54,7 +54,9 @@ def getpth(path=''):
     return ret
 
 
-def unzip(zipfile, cwd=getpth()):
+def unzip(zipfile, cwd=None):
+    if not cwd:
+        cwd = getpth()
     print(f'[debug / unzip] unzip {zipfile} on {cwd}')
     ret = os.system(f'cd {cwd} && unzip {zipfile}')
     if ret:
