@@ -14,7 +14,7 @@ import os
 # raise NotImplementedError('还没做完呢(')
 
 # func
-base = ''
+global base
 
 
 def testcmd(cmd):
@@ -29,7 +29,6 @@ def testcmd(cmd):
     else:
         print(f'[debug / testcmd] test {cmd}: {ret} fail')
         return False
-
 
 def get(url, path):
     '''
@@ -61,11 +60,11 @@ def unzip(zipfile, cwd=getpth()):
     if ret:
         raise f'Unzip {zipfile} failed! (working: {cwd}, return: {ret})'
 
-def move(src, dst):
-    print(f'[debug / move] {src} -> {dst}')
-    ret = os.system(f'mv -vf {src} {dst}')
+def copy(src, dst):
+    print(f'[debug / copy] {src} -> {dst}')
+    ret = os.system(f'cp {src} {dst}')
     if ret:
-        raise f'Move {src} to {dst} failed!'
+        raise f'Copy {src} to {dst} failed!'
 
 def main():
     print('''
@@ -80,7 +79,7 @@ https://github.com/siiway/serv00-daemon/blob/main/script/install-daemon.py
     print('Step 2: 解压代码')
     unzip('code.zip')
     print('Step 3: 拷贝文件到正确位置')
-    move(getpth('serv00-daemon-main/app/*'), getpth('public_python/'))
+    copy(getpth('serv00-daemon-main/app/*'), getpth('public_python/'))
     print('Step 4:?')
 
 main()
