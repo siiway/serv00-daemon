@@ -10,7 +10,6 @@ from index import *
 from config import *
 
 app = Flask(__name__)
-r = '<br\>\n'  # html 换行
 
 
 def load_key(path, coding='utf-8'):
@@ -53,34 +52,34 @@ def daemon(key):
     此处调起 pm2
     '''
     ret = '<!DOCTYPE HTML>\nServ00 Daemon Script'
-    ret += f'{r}By wyf9, All rights Reserved.{r}{r}'
+    ret += f'\nBy wyf9, All rights Reserved.\n\n'
     if key != DAEMON_KEY:
-        ret += f'Incorrect Key!{r}'
+        ret += f'Incorrect Key!\n'
     else:
-        ret += f'DaemonCommand: {DAEMON_COMMAND}{r}'
+        ret += f'DaemonCommand: {DAEMON_COMMAND}\n'
         try:
             # 使用 subprocess.PIPE 捕获输出
             callproc = subprocess.Popen(DAEMON_COMMAND, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = callproc.communicate()  # 获取输出和错误信息
             stdout = stdout.decode("utf-8")
             stderr = stderr.decode("utf-8")
-            ret += f'ProcessStatus: {r}'
+            ret += f'ProcessStatus: \n'
             # 使用 returncode 获取进程返回状态
-            ret += f'- running: {callproc.returncode}{r}'
-            ret += f'- pid: {callproc.pid}{r}'
-            ret += f'Output:{r}---{r}<pre>{stdout}</pre>{r}'  # 将输出解码为字符串
+            ret += f'- running: {callproc.returncode}\n'
+            ret += f'- pid: {callproc.pid}\n'
+            ret += f'Output:\n---\n{stdout}\n'  # 将输出解码为字符串
             if stderr:
                 # 将错误信息解码为字符串
-                ret += f'---{r}Error: {stderr}{r}'
+                ret += f'---\nError: {stderr}\n'
         except Exception as e:
-            ret += f'Error executing command: {str(e)}{r}'
+            ret += f'Error executing command: {str(e)}\n'
     if request.method == 'HEAD':
         # 处理 HEAD 请求
         ret = '(HEAD request)'
         if key != DAEMON_KEY:
-            ret += f'{r}Incorrect Key!'
+            ret += f'\nIncorrect Key!'
     log(loginfo=ret, ip=request.remote_addr, path='/daemon')
-    return ret
+    return f'<pre>{ret}</pre>'
 
 
 if __name__ == "__main__":

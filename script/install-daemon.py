@@ -4,17 +4,9 @@
 'DaemonKey_Placeholder'
 'DaemonCommand_Placeholder'
 'LogFile_Placeholder'
-
-mkdir daemoninst && cd daemoninst
-wget -O daemon.zip https://github.com/siiway/serv00-daemon/archive/refs/heads/main.zip # 下载本 repo
-unzip daemon.zip # 解压
-cp main/app/* ~/
 '''
 import os
 from uuid import uuid4 as uuid
-# raise NotImplementedError('还没做完呢(')
-
-# func
 
 
 def testcmd(cmd):
@@ -88,9 +80,10 @@ def main():
     print('''
 Serv00 Daemon Installer
 https://github.com/siiway/serv00-daemon/blob/main/script/install-daemon.py
-请在继续前安装: (wget 或 curl), unzip
+Repo: siiway/serv00-daemon
+Give a Star ⭐ please~
 ''')
-    print('[Input] 请在 Devil 控制面板创建一个 Python 项目, 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
+    print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
     global base
     base = input('> ')
     print('\nStep 1: 下载 repo')
