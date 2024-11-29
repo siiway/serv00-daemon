@@ -3,7 +3,6 @@ if osname == 'nt':
     exit(1)  # if running on Windows system, then quit.
 
 from flask import Flask, request
-from os.path import expanduser
 import subprocess
 from datetime import datetime
 
