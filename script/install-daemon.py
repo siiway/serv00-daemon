@@ -14,7 +14,6 @@ import os
 # raise NotImplementedError('还没做完呢(')
 
 # func
-global base
 
 
 def testcmd(cmd):
@@ -29,6 +28,7 @@ def testcmd(cmd):
     else:
         print(f'[debug / testcmd] test {cmd}: {ret} fail')
         return False
+
 
 def get(url, path):
     '''
@@ -60,11 +60,13 @@ def unzip(zipfile, cwd=getpth()):
     if ret:
         raise f'Unzip {zipfile} failed! (working: {cwd}, return: {ret})'
 
+
 def copy(src, dst):
     print(f'[debug / copy] {src} -> {dst}')
     ret = os.system(f'cp {src} {dst}')
     if ret:
         raise f'Copy {src} to {dst} failed!'
+
 
 def main():
     print('''
@@ -73,6 +75,7 @@ https://github.com/siiway/serv00-daemon/blob/main/script/install-daemon.py
 请在继续前安装: (wget 或 curl), unzip
 ''')
     print('请在 Devil 控制面板创建一个 Python 项目, 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
+    global base
     base = input('> ')
     print('Step 1: 下载 repo')
     get('https://github.com/siiway/serv00-daemon/archive/refs/heads/main.zip', getpth('code.zip'))
@@ -81,5 +84,6 @@ https://github.com/siiway/serv00-daemon/blob/main/script/install-daemon.py
     print('Step 3: 拷贝文件到正确位置')
     copy(getpth('serv00-daemon-main/app/*'), getpth('public_python/'))
     print('Step 4:?')
+
 
 main()
