@@ -119,10 +119,12 @@ Give a Star ⭐ please~
     LogFile = user_input(name='LogFile', desc='日志文件的路径', default='/dev/null')
     print('[Tip] 配置免密登录: https://github.com/siiway/serv00-daemon/tree/dev?tab=readme-ov-file#ssh-免密登录')
     SSHCommand = user_input(name='SSHCommand', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost "devil info account"')
+    WebhookUrl = user_input('WebhookUrl', desc='Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送', default='')
     file = replace(file, 'DaemonKey_Placeholder', DaemonKey)
     file = replace(file, 'DaemonCommand_Placeholder', DaemonCommand)
     file = replace(file, 'LogFile_Placeholder', LogFile)
     file = replace(file, 'SSHCommand_Placeholder', SSHCommand)
+    file = replace(file, 'WebhookUrl_Placeholder', WebhookUrl)
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()

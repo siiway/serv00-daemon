@@ -11,6 +11,8 @@
 import subprocess
 import re
 
+import webhook
+
 
 def login(command) -> str:
     '''
@@ -21,7 +23,6 @@ def login(command) -> str:
     :return: 多行日志信息
     '''
     log = '--- SSH Renew\n'
-    message = ''
     try:
         # 使用 subprocess.PIPE 捕获输出
         callproc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -31,15 +32,19 @@ def login(command) -> str:
         pattern = r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'
         match = re.search(pattern, stdout)
         if match:
-            expire = match.group(1)
-            log += f'\nexpire: {expire}'
+            result = match.group(1)
+            log += f'\nExpire date now: {result}'
         else:
-            expire = 'Failed to get expiration date'
-            log += f'Failed to get expiration date\nOriginal output (stdout):\n---\n{stdout}\n'
+            result = 'Failed to parse expiration date'
+            log += f'Failed to parse expiration date\nOriginal output (stdout):\n---\n{stdout}\n'
             if stderr:
+                result = 'Detected stderr output when running command'
                 log += f'---\nError (stderr): {stderr}\n'
 
     except Exception as e:
+        result = f'Error when running command: {str(e)}'
         log += f'ERROR executing command: {str(e)}\n'
 
+    hookcode, hookresp = webhook.hook(result=result)
+    log += f'\nWebhook response: {hookcode}\n{hookresp}'
     return log

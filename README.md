@@ -81,14 +81,22 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
   * 使用pm2记得作更改后用 `pm2 save` 保存到 dump 文件，否则重启会丢失!
 - LogFile (`日志文件的路径`): 也是顾名思义, 默认是 `/dev/null`, 就是不保存日志
 > TODO: 更新这里
+
+> [!NOTE]
+> 如果报错找不到库, 请手动安装: `pip install discord-webhook pytz`
+
+```md
+### 依赖来源
+  - **discord-webhook**: `webhook.py`
+  - **pytz**: `webhook.py`
+
 ## 继续
 
-使用 [上一步](#安装) 的脚本安装完成后, 链接会将你带到这里, 接下来我们就要进行简单的收尾工作: 接入定时器 了.
+使用 [上一步](#安装) 的脚本安装完成后, 链接会将你带到这里, 接下来我们就要进行简单的收尾工作: **接入定时器** 了.
 
 虽然简单, 但这也是**最重要**的一步, 它决定了你的 Daemon 如何定时触发
 
-> [!NOTE]
-> 如果报错找不到 `paramiko` 库, 请手动安装: `pip install paramiko`
+```
 
 > 继续之前, 在你的 Devil 控制面板重启网站.
 > 在这里我使用 [UptimeRobot](https://dashboard.uptimerobot.com/) 作演示, 也可选择其他类似的 url 监测平台
