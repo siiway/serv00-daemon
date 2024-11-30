@@ -13,6 +13,7 @@
 
 > [!WARNING]
 > *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容可能有争议/错误, 请勿开骂qwq*
+> update: 其实是用两个凌晨写的 (24-11-30, 24-12-1) [commit](https://github.com/siiway/serv00-daemon/commit/d85171835d49f83575afd71dff4813ee06bb4d7b)
 
 Serv00 自动续期有两种方案:
 
@@ -80,7 +81,8 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
   * 这个命令不太清楚, 但能用就行 (如果pm2没启动就会~~启动pm2(?)~~自启并恢复应用)
   * 使用pm2记得作更改后用 `pm2 save` 保存到 dump 文件，否则重启会丢失!
 - LogFile (`日志文件的路径`): 也是顾名思义, 默认是 `/dev/null`, 就是不保存日志
-> TODO: 更新这里
+- SSHCommand (`ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可`): ← 不想创建公钥可以用 `sshpass -p "你的密码" ssh localhost "devil info account"`
+- WebhookUrl (`Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送`): ← 我自认为我已经说得很清楚了
 
 > [!NOTE]
 > 如果报错找不到库, 请手动安装: `pip install flask discord-webhook pytz`
@@ -90,6 +92,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
   - **flask**: `application.py`
   - **discord-webhook**: `webhook.py`
   - **pytz**: `webhook.py`, `application.py`
+```
 
 ## 继续
 
@@ -97,7 +100,6 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 虽然简单, 但这也是**最重要**的一步, 它决定了你的 Daemon 如何定时触发
 
-```
 
 > 继续之前, 在你的 Devil 控制面板重启网站.
 > 在这里我使用 [UptimeRobot](https://dashboard.uptimerobot.com/) 作演示, 也可选择其他类似的 url 监测平台
@@ -131,9 +133,13 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 ![continue-test](img/continue-test.png)
 
+什么？漏token了？不，token已经被我重置啦！:dog: ~~(来不及了就这个吧)~~
+
 也可以使用 [cron-job](https://console.cron-job.org/) 监视, 照填即可↓
 
 ![continue-cronjob-org](img/continue-cronjob-org.png)
+
+> ps: 不用转换时间，都是 `Asia/Shanghai` (除了过期时间, 直接从 banner 截取的~~懒得转~~)
 
 ## End
 

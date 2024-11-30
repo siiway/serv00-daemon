@@ -24,7 +24,7 @@ def log(loginfo='', ip='(ip)', method='(method)', path='/(path)'):
     :param path: 请求路径
     '''
     with open(config.LOG_FILE, 'a', encoding='utf-8') as f:
-        f.write(f'\n{"-"*16}\n[{datetime.datetime.now(pytz.timezone('Asia/Shanghai')).strftime(' % Y-%m-%d % H: % M: % S')}] [{ip}] {method} {path}\n{loginfo}')
+        f.write(f'\n{"-"*16}\n[{datetime.datetime.now(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")}] [{ip}] {method} {path}\n{loginfo}')
 
 
 with open(config.LOG_FILE, 'w', encoding='utf-8') as f:
