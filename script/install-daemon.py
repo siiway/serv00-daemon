@@ -92,7 +92,7 @@ Give a Star ⭐ please~
     else:
         print('执行 pm2 --version 失败, 从 https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh 下载')
         get('https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh', getpth('install-pm2.sh'))
-        os.system(f'bash {getpth('install-pm2.sh')}')
+        os.system(f'bash {getpth("install-pm2.sh")}')
     print('Step 1: 下载 repo')
     get('https://github.com/siiway/serv00-daemon/archive/refs/heads/main.zip', getpth('code.zip'))
     print('Step 2: 解压代码')
