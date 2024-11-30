@@ -14,8 +14,6 @@
 > [!WARNING]
 > *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容可能有争议/错误, 请勿开骂qwq*
 
-> ~~早上~~下午把自动续期补上了
-
 Serv00 自动续期有两种方案:
 
 1. [ ] 通过 s*.serv00.com 登录面板 ([已有人实现](https://github.com/lopins/serv00-auto-scripts))

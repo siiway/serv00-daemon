@@ -1,9 +1,11 @@
 # coding: utf-8
 # GitHub siiway/serv00-daemon @ main : /script/install-daemon.py
+# 抄袭不标出处是一种可耻的行为 / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
 '''
 'DaemonKey_Placeholder'
 'DaemonCommand_Placeholder'
 'LogFile_Placeholder'
+'SSHKeyPath_Placeholder'
 '''
 import os
 from uuid import uuid4 as uuid
@@ -85,7 +87,12 @@ Give a Star ⭐ please~
 ''')
     print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
     global base
-    base = input('> ')
+    while True:
+        base = input('> ')
+        if os.path.exists(base):
+            break
+        else:
+            print('目录不存在, 请重新输入 (访问 https://panel*.serv00.com/www/ 创建, * 为你的面板编号)')
     print('\nStep 0: 检查 pm2')
     if testcmd('pm2 --version'):
         print('检测到 pm2 已安装, 跳过下载')
@@ -101,8 +108,7 @@ Give a Star ⭐ please~
     copy(getpth('serv00-daemon-main/app/*'), getpth('public_python/'))
     print('Step 4: 设置参数')
     configpth = getpth("public_python/config.py")
-    print(f'[Tip] 可以稍候编辑 {configpth} 以修改配置.')
-    global file
+    print(f'[Tip] 可以稍后编辑 {configpth} 以修改配置.')
     file = ''
     with open(configpth, mode='r', encoding='utf-8') as f:
         file = f.read()
@@ -111,9 +117,20 @@ Give a Star ⭐ please~
     print(f'设置的 key: {DaemonKey}')
     DaemonCommand = user_input(name='DaemonCommand', desc='访问时需要执行的命令', default='pm2 resurrect')
     LogFile = user_input(name='LogFile', desc='日志文件的路径', default='/dev/null')
+    UserName = os.getlogin()
+    print(f'检测到你的用户名为: {UserName}')
+    while True:
+        SSHKeyPath = user_input(name='SSHKeyPath', desc='SSH 私钥路径 (如果一路回车创建应该为 /home/你的用户名/.ssh/id_rsa)', default=f'/home/{UserName}/.ssh/id_rsa')
+        if os.path.exists(SSHKeyPath):
+            break
+        else:
+            print('密钥文件不存在, 请重新输入! (Visit: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#ssh-免密登录')
+    print(f'SSH 密钥路径: {SSHKeyPath}')
     file = replace(file, 'DaemonKey_Placeholder', DaemonKey)
     file = replace(file, 'DaemonCommand_Placeholder', DaemonCommand)
     file = replace(file, 'LogFile_Placeholder', LogFile)
+    file = replace(file, 'UserName_Placeholder', UserName)
+    file = replace(file, 'SSHKeyPath_Placeholder', SSHKeyPath)
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()
