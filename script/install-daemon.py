@@ -86,7 +86,14 @@ Give a Star ⭐ please~
     print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
     global base
     base = input('> ')
-    print('\nStep 1: 下载 repo')
+    print('\nStep 0: 检查 pm2')
+    if testcmd('pm2 --version'):
+        print('检测到 pm2 已安装, 跳过下载')
+    else:
+        print('执行 pm2 --version 失败, 从 https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh 下载')
+        get('https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh', getpth('install-pm2.sh'))
+        os.system(f'bash {getpth('install-pm2.sh')}')
+    print('Step 1: 下载 repo')
     get('https://github.com/siiway/serv00-daemon/archive/refs/heads/main.zip', getpth('code.zip'))
     print('Step 2: 解压代码')
     unzip('code.zip')

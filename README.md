@@ -12,7 +12,9 @@
 ## Why this project?
 
 > [!WARNING]
-> *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容可能有争议/错误, 请勿开骂qwq*; and: 自动登录还没写(, ~~明天(x)~~ 待会一定补上
+> *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容可能有争议/错误, 请勿开骂qwq*
+
+> ~~早上~~~~中午~~下午把自动续期补上了
 
 Serv00 自动续期有两种方案:
 
@@ -58,6 +60,7 @@ cd ~/.ssh
 ls -l
 
 # 2. 如果没有: 生成一个新的密钥
+# 建议一路回车, 直接不带密码保存到默认目录即可
 ssh-keygen -t rsa
 
 # 3. 追加**公钥**到信任列表 (分清楚: 公钥带 .pub 后缀, 内容较短; 私钥没有, 内容较长)
@@ -74,10 +77,9 @@ ssh localhost
 wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-daemon.py && python3 install-daemon.py && rm install-daemon.py
 ```
 
-> 不会自动安装 pm2, 请找 [前面](#准备工作) 的脚本安装 pm2 再使用.
+> ~~不会自动安装 pm2, 如没有请找 [前面](#准备工作) 的脚本安装 pm2 再使用.~~ 如果没有安装 pm2 会自动下载脚本并安装.
 
 在安装过程中会询问下面的信息 *(不填回车就是默认)*:
-
 
 - DaemonKey (`访问时需要携带的 key (妥善保管)`): 其实就是类似于密钥一类的东西, 默认随机生成一个[uuid](https://www.bing.com/search?q=uuid)
 - DaemonCommand (`访问时需要执行的命令`): ← 在 pm2 中为 `pm2 resurrect`, 也是本项默认值
@@ -89,7 +91,9 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 使用 [上一步](#安装) 的脚本安装完成后, 链接会将你带到这里, 接下来我们就要进行简单的收尾工作: 接入定时器 了.
 
-虽然简单, 但这也是最重要的一步, 它决定了你的 Daemon 如何自动触发
+虽然简单, 但这也是**最重要**的一步, 它决定了你的 Daemon 如何定时触发
+
+> 继续之前, 在你的 Devil 控制面板重启网站.
 
 > [!NOTE]
 > 在这里我使用 [UptimeRobot](https://dashboard.uptimerobot.com/) 作演示, 也可选择其他类似的 url 监测平台
@@ -104,8 +108,15 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 ![continue-3](img/continue-3.png)
 
 ```url
+!这里需要创建两个监视器!
+
+1. pm2 进程保活 (建议设置 5 分钟)
 http://USERNAME.serv00.net/daemon/MyKey
 
+2. 登录 SSH 保号 (建议设置至少一天)
+http://USERNAME.serv00.net/sshalive/MyKey
+
+替换以下字段:
 http: 协议, 如果直接使用 用户名.serv00.net 可使用 https; 如使用类似 xxx.用户名.serv00.net 的子域名默认只能使用 http
 USERNAME.serv00.net: 部署的域名
 MyKey: 前面设置的密钥
@@ -115,6 +126,10 @@ MyKey: 前面设置的密钥
 > 可以直接访问拼接的 url 测试是否能使用, 如果配置正确, 应该会显示类似下图的内容:
 
 ![continue-test](img/continue-test.png)
+
+也可以使用 [cron-job](https://console.cron-job.org/) 监视, 照填即可↓
+
+![continue-cronjob-org](img/continue-cronjob-org.png)
 
 ## End
 
