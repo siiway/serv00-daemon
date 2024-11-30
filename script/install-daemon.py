@@ -118,7 +118,7 @@ Give a Star ⭐ please~
     DaemonCommand = user_input(name='DaemonCommand', desc='访问时需要执行的命令', default='pm2 resurrect')
     LogFile = user_input(name='LogFile', desc='日志文件的路径', default='/dev/null')
     print('[Tip] 配置免密登录: https://github.com/siiway/serv00-daemon/tree/dev?tab=readme-ov-file#ssh-免密登录')
-    SSHCommand = user_input(name='SSHCommand', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost')
+    SSHCommand = user_input(name='SSHCommand', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost "devil info account"')
     file = replace(file, 'DaemonKey_Placeholder', DaemonKey)
     file = replace(file, 'DaemonCommand_Placeholder', DaemonCommand)
     file = replace(file, 'LogFile_Placeholder', LogFile)

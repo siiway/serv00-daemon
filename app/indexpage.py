@@ -1,5 +1,5 @@
 # coding: utf-8
-# index.py: 访问根目录时的伪装
+# indexpage.py: 访问根目录时的伪装
 
 # 将完整 html 定义为 INDEX_HTML 字符串即可
 INDEX_HTML = '''
