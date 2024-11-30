@@ -2,8 +2,6 @@
 
 基于 Python WWW Pages 的 Serv00 Daemon, 实现进程保活/自动保号
 
-(正在加急开发)
-
 ## 功能
 
 1. 自动拉起在 PM2 上托管的进程
@@ -148,5 +146,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
 
 这个是搬运不带原文链接的，建议看评论：https://bs.openface.cc/2024/06/serv00.html
+
+![openface-cc-copyarticle](img/openface-cc-copyarticle.png)
 
 https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
