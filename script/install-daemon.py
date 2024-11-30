@@ -1,6 +1,6 @@
 # coding: utf-8
 # GitHub siiway/serv00-daemon @ main : /script/install-daemon.py
-# 抄袭不标出处是一种可耻的行为 / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
+# by wyf9. / **抄袭不标出处是一种可耻的行为** / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
 '''
 'DaemonKey_Placeholder'
 'DaemonCommand_Placeholder'
@@ -93,13 +93,18 @@ Give a Star ⭐ please~
             break
         else:
             print('目录不存在, 请重新输入 (访问 https://panel*.serv00.com/www/ 创建, * 为你的面板编号)')
-    print('\nStep 0: 检查 pm2')
+    print('\nStep -1: 检查 pm2')
     if testcmd('pm2 --version'):
         print('检测到 pm2 已安装, 跳过下载')
     else:
         print('执行 pm2 --version 失败, 从 https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh 下载')
         get('https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh', getpth('install-pm2.sh'))
         os.system(f'bash {getpth("install-pm2.sh")}')
+    print('Step 0: 安装依赖')
+    install_dep_command = 'pip install flask discord-webhook pytz'
+    ret = os.system(install_dep_command)
+    if ret:
+        raise Exception(f'安装依赖命令 {install_dep_command} 返回不为 0: {ret}')
     print('Step 1: 下载 repo')
     get('https://github.com/siiway/serv00-daemon/archive/refs/heads/main.zip', getpth('code.zip'))
     print('Step 2: 解压代码')

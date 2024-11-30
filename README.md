@@ -83,12 +83,13 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 > TODO: 更新这里
 
 > [!NOTE]
-> 如果报错找不到库, 请手动安装: `pip install discord-webhook pytz`
+> 如果报错找不到库, 请手动安装: `pip install flask discord-webhook pytz`
 
 ```md
 ### 依赖来源
+  - **flask**: `application.py`
   - **discord-webhook**: `webhook.py`
-  - **pytz**: `webhook.py`
+  - **pytz**: `webhook.py`, `application.py`
 
 ## 继续
 
