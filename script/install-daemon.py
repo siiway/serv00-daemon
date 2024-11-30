@@ -79,7 +79,7 @@ def replace(value: str, before, after):
 
 
 def main():
-    branch = 'dev'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个
+    branch = 'main'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个
     print(f'''
 Serv00 Daemon Installer
 https://github.com/siiway/serv00-daemon/blob/{branch}/script/install-daemon.py
