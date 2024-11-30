@@ -117,20 +117,12 @@ Give a Star ⭐ please~
     print(f'设置的 key: {DaemonKey}')
     DaemonCommand = user_input(name='DaemonCommand', desc='访问时需要执行的命令', default='pm2 resurrect')
     LogFile = user_input(name='LogFile', desc='日志文件的路径', default='/dev/null')
-    UserName = os.getlogin()
-    print(f'检测到你的用户名为: {UserName}')
-    while True:
-        SSHKeyPath = user_input(name='SSHKeyPath', desc='SSH 私钥路径 (如果一路回车创建应该为 /home/你的用户名/.ssh/id_rsa)', default=f'/home/{UserName}/.ssh/id_rsa')
-        if os.path.exists(SSHKeyPath):
-            break
-        else:
-            print('密钥文件不存在, 请重新输入! (Visit: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#ssh-免密登录')
-    print(f'SSH 密钥路径: {SSHKeyPath}')
+    print('[Tip] 配置免密登录: https://github.com/siiway/serv00-daemon/tree/dev?tab=readme-ov-file#ssh-免密登录')
+    SSHCommand = user_input(name='SSHCommand', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost')
     file = replace(file, 'DaemonKey_Placeholder', DaemonKey)
     file = replace(file, 'DaemonCommand_Placeholder', DaemonCommand)
     file = replace(file, 'LogFile_Placeholder', LogFile)
-    file = replace(file, 'UserName_Placeholder', UserName)
-    file = replace(file, 'SSHKeyPath_Placeholder', SSHKeyPath)
+    file = replace(file, 'SSHCommand_Placeholder', SSHCommand)
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()

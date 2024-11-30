@@ -71,7 +71,7 @@ https://github.com/siiway/serv00-daemon - Give a star⭐!\n
                 except Exception as e:
                     ret += f'ERROR executing command: {str(e)}\n'
             case 'renew':
-                ret += sshrenew()
+                ret += sshrenew(SSH_COMMAND)
             case _:
                 ret += f'ERROR: invaild path /{path}'
     log(loginfo=ret, ip=request.remote_addr, method=request.method, path=f'{path}')

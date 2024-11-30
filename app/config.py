@@ -7,7 +7,5 @@ DAEMON_KEY = 'DaemonKey_Placeholder'
 DAEMON_COMMAND = 'DaemonCommand_Placeholder'
 # 日志文件目录
 LOG_FILE = 'LogFile_Placeholder'
-# 你的用户名
-USER_NAME = 'UserName_Placeholder'
-# 你的私钥路径
-SSH_KEY_PATH = 'SSHKeyPath_Placeholder'
+# ssh 连接命令, 如不想[创建公钥](https://github.com/siiway/serv00-daemon/tree/dev?tab=readme-ov-file#ssh-免密登录) 可以使用 sshpass
+SSH_COMMAND = 'SSHCommand_Placeholder'

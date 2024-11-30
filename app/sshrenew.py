@@ -8,45 +8,33 @@
 4. close conn
 '''
 
-import paramiko
-from time import sleep
-from config import *
+import subprocess
 
 
-def login() -> str:
+def login(command) -> str:
     '''
     自定义 SSH 函数\n
     ps: 如果想的话, 可以自己修改实现多个账号续期哦
 
+    :param command: 配置中的 SSH_COMMAND
     :return: 多行日志信息
     '''
-    log = '--- SSH Renew'
-
-    hostname = 'localhost'
-    port = 22
-    username = USER_NAME
-    private_key_path = SSH_KEY_PATH
-
+    log = '--- SSH Renew\n'
     try:
-        private_key = paramiko.RSAKey(filename=private_key_path)
-        client = paramiko.SSHClient()
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # 使用 subprocess.PIPE 捕获输出
+        callproc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-        client.connect(hostname, port, username, pkey=private_key)
+        # 读取输出和错误信息
+        stdout, stderr = callproc.communicate(input='exit 0\n', timeout=10)
 
-        # MOTD command
-        stdin, stdout, stderr = client.exec_command('source /etc/profile')
-        sleep(10)
-        # get full out
-        out = stdout.read().decode()
-        err = stderr.read().decode()
+        log += f'ProcessStatus: \n'
+        log += f'- running: {callproc.returncode}\n'  # 使用 returncode 获取进程返回状态
+        log += f'- pid: {callproc.pid}\n'
+        log += f'Output (stdout):\n---\n{stdout}\n'
+        if stderr:
+            log += f'---\nError (stderr): {stderr}\n'
 
-        log += f'\n\n{out}'
-        if err:
-            log += f'\n\nstderr:\n{err}'
-
-        # 关闭SSH连接
-        client.close()
     except Exception as e:
-        log += f'\nERROR: {e}'
+        log += f'ERROR executing command: {str(e)}\n'
+
     return log
