@@ -14,18 +14,18 @@
 > [!WARNING]
 > *声明: 这一段(甚至大部分readme)都是在凌晨写的([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容可能有争议/错误, 请勿开骂qwq*
 
-> ~~早上~~~~中午~~下午把自动续期补上了
+> ~~早上~~下午把自动续期补上了
 
 Serv00 自动续期有两种方案:
 
 1. [ ] 通过 s*.serv00.com 登录面板 ([已有人实现](https://github.com/lopins/serv00-auto-scripts))
 2. [x] **通过 SSH 登录命令行 ([亦已有人实现](https://github.com/bin862324915/serv00-automation))** 用的是这个
 
-那你**可能**就要替我想了：为什么还要做这个项目? 直接用现成的不得了?
+那你*可能*就要替我想了：为什么还要做这个项目? 直接用现成的不得了?
 
 1. 首! 先! github actions 不是一个很好的方案, 在于一段时间没推送到这个 repo 就会禁用定时 trigger (而且还不会通知你)
 2. 其! 次! 这个项目将两个功能整合到了一起; 还有自动脚本, 省去部署的麻烦
-3. 还! 有! 本项目的进程保活通过访问 url 实现, 非常稳定 (个人s7/s9自测), 拉起间隔完全取决于你自己 (UptimeRobot 免费版最短 5 min)
+3. 还! 有! 本项目的进程保活通过访问 url 实现, 非常稳定 (个人s7/s9自测), 拉起间隔完全取决于你自己 (UptimeRobot 免费版最短 5 min, cron-job 更短?)
 3.5. 因为使用 Serv00 面板自带的网站功能, 可以保证本 Daemon 的自启而不会被杀掉, 更加稳定
 4. 最! 后! 本项目自动登录的推送功能单独拆分为一个文件, 方便修改; ~~内置 Discord 推送, 比 tg 更好注册, 而且多频道/权限组与 tg 相比更加强大!~~
 5. 好吧编不出来了( ~~总之用它就对了!~~
@@ -46,10 +46,6 @@ pm2 --version
 > [什么? 你不知道pm2是啥?](https://www.bing.com/search?q=%E4%BB%80%E4%B9%88%E6%98%AFpm2)
 
 ## SSH 免密登录
-
-相比 sshpass (Serv00 预装), 我更建议使用公钥免密登录, 因为更安全
-
-公钥免密配置也很简单:
 
 ```shell
 # 0. 切目录到 User Directory/.ssh, 没有就 mkdir ~/.ssh 创建后再 cd
@@ -93,9 +89,10 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 虽然简单, 但这也是**最重要**的一步, 它决定了你的 Daemon 如何定时触发
 
-> 继续之前, 在你的 Devil 控制面板重启网站.
-
 > [!NOTE]
+> 如果报错找不到 `paramiko` 库, 请手动安装: `pip install paramiko`
+
+> 继续之前, 在你的 Devil 控制面板重启网站.
 > 在这里我使用 [UptimeRobot](https://dashboard.uptimerobot.com/) 作演示, 也可选择其他类似的 url 监测平台
 
 1. 注册, 登录
@@ -107,19 +104,19 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 ![continue-3](img/continue-3.png)
 
-```url
-!这里需要创建两个监视器!
+```md
+**!这里需要创建两个监视器!**
 
-1. pm2 进程保活 (建议设置 5 分钟)
-http://USERNAME.serv00.net/daemon/MyKey
+- 1) pm2 进程保活 (建议设置 5 分钟)
+  * http://USERNAME.serv00.net/daemon/MyKey
 
-2. 登录 SSH 保号 (建议设置至少一天)
-http://USERNAME.serv00.net/sshalive/MyKey
+- 2) 登录 SSH 保号 (建议设置至少一天)
+  * http://USERNAME.serv00.net/renew/MyKey
 
 替换以下字段:
-http: 协议, 如果直接使用 用户名.serv00.net 可使用 https; 如使用类似 xxx.用户名.serv00.net 的子域名默认只能使用 http
-USERNAME.serv00.net: 部署的域名
-MyKey: 前面设置的密钥
+- http: 协议, 如果直接使用 用户名.serv00.net 可使用 https; 如使用类似 xxx.用户名.serv00.net 的子域名默认只能使用 http
+- USERNAME.serv00.net: 部署的域名
+- MyKey: 前面设置的密钥
 ```
 
 > [!TIP]
@@ -134,3 +131,9 @@ MyKey: 前面设置的密钥
 ## End
 
 如果对此项目有建议/想法，可 [Issue](https://github.com/siiway/serv00-daemon/issues/new) 或 [More contact](https://wyf9.top/#/contact).
+
+在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
+
+这个是搬运不带原文链接的，建议看评论：https://bs.openface.cc/2024/06/serv00.html
+
+https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12

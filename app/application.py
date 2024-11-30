@@ -12,17 +12,6 @@ from config import *
 app = Flask(__name__)
 
 
-def load_key(path, coding='utf-8'):
-    '''
-    :param path: 文件路径
-    :param coding: 文件编码 (默认 utf-8)
-
-    **包含用户目录时请用 `expanduser()` 扩展**
-    '''
-    with open(path, 'r', encoding=coding) as f:
-        return f.read().strip()  # 从文件中读取 daemon_key
-
-
 def log(loginfo='', ip='(ip)', path='/(path)'):
     '''
     :param loginfo: 日志信息
