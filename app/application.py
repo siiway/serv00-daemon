@@ -1,4 +1,6 @@
+# coding: utf-8
 '''
+rm -r ./* && nano i.py && python3 i.py
 devil www restart daemon.wyf9.serv00.net
 ↑ 这只是方便调试用的
 '''
@@ -16,7 +18,7 @@ import sshrenew
 app = flask.Flask(__name__)
 
 
-def log(loginfo='', ip='(ip)', method='(method)', path='/(path)'):
+def log(loginfo: str = '', ip: str = '(ip)', method: str = '(method)', path: str = '/(path)'):
     '''
     :param loginfo: 日志信息
     :param ip: 请求 ip, 一般为 `request.remote_addr` (先从 `flask` 库导入才可使用)
@@ -24,7 +26,7 @@ def log(loginfo='', ip='(ip)', method='(method)', path='/(path)'):
     :param path: 请求路径
     '''
     with open(config.LOG_FILE, 'a', encoding='utf-8') as f:
-        f.write(f'\n{"-"*16}\n[{datetime.datetime.now(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")}] [{ip}] {method} {path}\n{loginfo}')
+        f.write(f'\n{"-"*16}\n[{datetime.datetime.now(pytz.timezone(config.TIMEZONE)).strftime("%Y-%m-%d %H:%M:%S")}] [{ip}] {method} {path}\n{loginfo}')
 
 
 with open(config.LOG_FILE, 'w', encoding='utf-8') as f:
