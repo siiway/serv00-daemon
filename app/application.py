@@ -1,5 +1,6 @@
 # coding: utf-8
 '''
+rm -r ./* && nano i.py && python3 i.py
 devil www restart daemon.wyf9.serv00.net
 ↑ 这只是方便调试用的
 '''

@@ -39,7 +39,7 @@ def hook(result: str) -> tuple[int, str]:
 *[ **{user}** @ **{hostname}** ]*
 > Serv00 Auto Renew Completed!
 > **Execute time**: {time} *({config.TIMEZONE})*
-> **Expire time**: {result}
+> **Expire time**: {result} *({config.TIMEZONE})*
 '''
     webhook = DiscordWebhook(url=url, content=message)
     response = webhook.execute()
