@@ -10,8 +10,11 @@
 
 import subprocess
 import re
+import datetime
+import pytz
 
 import webhook
+import config
 
 
 def login(command) -> str:
@@ -33,6 +36,12 @@ def login(command) -> str:
         match = re.search(pattern, stdout)
         if match:
             result = match.group(1)
+            # convert timezone
+            result = datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S')
+            try:
+                result = pytz.timezone(config.TIMEZONE).localize(result)
+            except pytz.UnknownTimeZoneError:
+                result = f'{pytz.timezone(config.TIMEZONE).localize(result)} [Unknown timezone in config]'
             log += f'\nExpire date now: {result}'
         else:
             result = 'Failed to parse expiration date'
@@ -42,7 +51,7 @@ def login(command) -> str:
                 log += f'---\nError (stderr): {stderr}\n'
 
     except Exception as e:
-        result = f'Error when running command: {str(e)}'
+        result = f'Error executing command: {str(e)}'
         log += f'ERROR executing command: {str(e)}\n'
 
     hookcode, hookresp = webhook.hook(result=result)

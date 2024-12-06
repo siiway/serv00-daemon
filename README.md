@@ -90,7 +90,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 > [!NOTE]
 > 如果报错找不到库, 请手动安装: `pip install flask discord-webhook pytz`
-
+TODO: update here
 ```md
 ### 依赖来源
   - **flask**: `application.py`
@@ -142,8 +142,6 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 也可以使用 [cron-job](https://console.cron-job.org/) 监视, 照填即可↓
 
 ![continue-cronjob-org](img/continue-cronjob-org.png)
-
-> ps: 不用转换时间，都是 `Asia/Shanghai` (除了过期时间, 直接从 banner 截取的~~懒得转~~)
 
 ## End
 

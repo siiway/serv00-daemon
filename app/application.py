@@ -1,3 +1,4 @@
+# coding: utf-8
 '''
 devil www restart daemon.wyf9.serv00.net
 ↑ 这只是方便调试用的
@@ -24,7 +25,7 @@ def log(loginfo: str = '', ip: str = '(ip)', method: str = '(method)', path: str
     :param path: 请求路径
     '''
     with open(config.LOG_FILE, 'a', encoding='utf-8') as f:
-        f.write(f'\n{"-"*16}\n[{datetime.datetime.now(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")}] [{ip}] {method} {path}\n{loginfo}')
+        f.write(f'\n{"-"*16}\n[{datetime.datetime.now(pytz.timezone(config.TIMEZONE)).strftime("%Y-%m-%d %H:%M:%S")}] [{ip}] {method} {path}\n{loginfo}')
 
 
 with open(config.LOG_FILE, 'w', encoding='utf-8') as f:

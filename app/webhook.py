@@ -30,10 +30,15 @@ def hook(result: str) -> tuple[int, str]:
         hostname = subprocess.check_output(["uname", "-n"]).decode().strip()
     except:
         hostname = '[get hostname failed]'
-    time = datetime.datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+    try:
+        time = datetime.datetime.now(pytz.timezone(config.TIMEZONE)).strftime('%Y-%m-%d %H:%M:%S')
+    except pytz.UnknownTimeZoneError:
+        time = datetime.datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+        config.TIMEZONE = 'Asia/Shanghai [**Invaild timezone in config**]'
     message = f'''{"-"*45}
-*[ **{time}** - **{user}** @ **{hostname}** ]*
+*[ **{user}** @ **{hostname}** ]*
 > Serv00 Auto Renew Completed!
+> **Execute time**: {time} *({config.TIMEZONE})*
 > **Expire time**: {result}
 '''
     webhook = DiscordWebhook(url=url, content=message)
