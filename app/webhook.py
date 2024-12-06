@@ -22,24 +22,35 @@ def hook(result: str) -> tuple[int, str]:
     url = config.WEBHOOK_URL
 
     # 构造消息
+    # user
     try:
         user = subprocess.check_output(["whoami"]).decode().strip()
     except:
         user = '[get user failed]'
+    # hostname
     try:
         hostname = subprocess.check_output(["uname", "-n"]).decode().strip()
     except:
         hostname = '[get hostname failed]'
+    # time now
     try:
         time = datetime.datetime.now(pytz.timezone(config.TIMEZONE)).strftime('%Y-%m-%d %H:%M:%S')
     except pytz.UnknownTimeZoneError:
         time = datetime.datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
         config.TIMEZONE = 'Asia/Shanghai [**Invaild timezone in config**]'
-    message = f'''{"-"*45}
-*[ **{user}** @ **{hostname}** ]*
-> Serv00 Auto Renew Completed!
-> **Execute time**: {time} *({config.TIMEZONE})*
+    # pm2 status
+    try:
+        pm2_status = subprocess.check_output(["pm2", "status"]).decode().strip()
+    except:
+        pm2_status = '[get pm2 status failed]'
+    # build msg
+    message = f'''*[**{time}**]* - Serv00 Auto Renew Completed!
+> **Hostname**: {hostname}
+> **User**: {user}
 > **Expire time**: {result} *({config.TIMEZONE})*
+```
+{pm2_status}
+```
 '''
     webhook = DiscordWebhook(url=url, content=message)
     response = webhook.execute()
