@@ -2,7 +2,7 @@
 # GitHub siiway/serv00-daemon - /script/install-daemon.py
 # by wyf9. / **抄袭不标出处是一种可耻的行为** / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
 # ----- for dev testing
-dev_branch = '490a24e4f0c6ebab84ad6816f830e66ec5d6f363'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个 (可以写 commit id, 好诶)
+dev_branch = 'b06e88f8863595ffd88c5c9235538520d358d9fe'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个 (可以写 commit id, 好诶)
 dev_bypass_install_pm2 = True
 dev_bypass_install_dep = True
 # -----

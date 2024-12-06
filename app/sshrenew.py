@@ -42,7 +42,7 @@ def login(command) -> str:
                 result = pytz.timezone(config.TIMEZONE).localize(result)
             except pytz.UnknownTimeZoneError:
                 result = f'{pytz.timezone(config.TIMEZONE).localize(result)}'
-            result = result.split('+')[0]
+            result = str(result).split('+')[0]
             log += f'\nExpire date now: {result}'
         else:
             result = 'Failed to parse expiration date'

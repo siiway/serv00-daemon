@@ -44,7 +44,7 @@ def hook(result: str) -> tuple[int, str]:
     except:
         pm2_status = '[get pm2 status failed]'
     # build msg
-    message = f'''*[**{time}**]* - Serv00 Auto Renew Completed!
+    message = f'''***{time}** - Serv00 Auto Renew Completed!*
 > **Hostname**: {hostname}
 > **User**: {user}
 > **Expire time**: {result} *({config.TIMEZONE})*
