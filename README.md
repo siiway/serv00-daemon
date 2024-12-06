@@ -87,10 +87,11 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 - LogFile (`日志文件的路径`): 也是顾名思义, 默认是 `/dev/null`, 就是不保存日志
 - SSHCommand (`ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可`): ← 不想创建公钥可以用 `sshpass -p "你的密码" ssh localhost "devil info account"`
 - WebhookUrl (`Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送`): ← 我自认为我已经说得很清楚了
+- Timezone (`消息中显示时间的时区`): 类似 [`Asia/Shanghai`](https://www.bing.com/search?q=Asia%2FShanghai) 的时区字符串, 在处理 Webhook 消息时会将时间转换到目标时区
 
 > [!NOTE]
 > 如果报错找不到库, 请手动安装: `pip install flask discord-webhook pytz`
-TODO: update here
+
 ```md
 ### 依赖来源
   - **flask**: `application.py`
@@ -123,7 +124,7 @@ TODO: update here
 - 1) pm2 进程保活 (建议设置 5 分钟)
   * http://USERNAME.serv00.net/daemon/MyKey
 
-- 2) 登录 SSH 保号 (建议设置至少一天)
+- 2) 登录 SSH 保号 (建议设置一天至一月不等)
   * http://USERNAME.serv00.net/renew/MyKey
 
 替换以下字段:
@@ -137,7 +138,7 @@ TODO: update here
 
 ![continue-test](img/continue-test.png)
 
-什么？漏token了？不，token已经被我重置啦！:dog: ~~(来不及了就这个吧)~~
+~~漏token了? 你说得很对, 但是已经被我重置了~~
 
 也可以使用 [cron-job](https://console.cron-job.org/) 监视, 照填即可↓
 
@@ -149,8 +150,8 @@ TODO: update here
 
 在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
 
-这个是搬运不带原文链接的，建议看评论：https://bs.openface.cc/2024/06/serv00.html
+这个 → 是搬运不带原文链接的，建议看评论：https://bs.openface.cc/2024/06/serv00.html
 
-![openface-cc-copyarticle](img/openface-cc-copyarticle.png)
+![openface-cc-copyarticlenoref](img/openface-cc-copyarticlenoref.png)
 
 https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
