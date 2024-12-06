@@ -2,6 +2,12 @@
 
 基于 Python WWW Pages 的 Serv00 Daemon, 实现进程保活/自动保号
 
+## TODO
+
+- add custom timezone option
+- add expire time calc
+- random wait time before request (seconds)
+
 ## 功能
 
 1. 自动拉起在 PM2 上托管的进程

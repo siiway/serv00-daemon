@@ -16,7 +16,7 @@ import sshrenew
 app = flask.Flask(__name__)
 
 
-def log(loginfo='', ip='(ip)', method='(method)', path='/(path)'):
+def log(loginfo: str = '', ip: str = '(ip)', method: str = '(method)', path: str = '/(path)'):
     '''
     :param loginfo: 日志信息
     :param ip: 请求 ip, 一般为 `request.remote_addr` (先从 `flask` 库导入才可使用)

@@ -1,20 +1,18 @@
 # coding: utf-8
-# GitHub siiway/serv00-daemon : /script/install-daemon.py
+# GitHub siiway/serv00-daemon - /script/install-daemon.py
 # by wyf9. / **抄袭不标出处是一种可耻的行为** / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
-'''
-'DaemonKey_Placeholder'
-'DaemonCommand_Placeholder'
-'LogFile_Placeholder'
-'SSHKeyPath_Placeholder'
-'''
+
 import os
 from uuid import uuid4 as uuid
 
 
-def testcmd(cmd):
+def testcmd(cmd: str):
     '''
-    success: True
-    fail (not 0): False
+    执行命令, 判断 return code 是否为 0
+
+    :param cmd: 要测试返回的命令
+    :return True: success
+    :return False: failed
     '''
     ret = os.system(f'{cmd}>/dev/null')
     if ret == 0:
@@ -23,9 +21,13 @@ def testcmd(cmd):
         return False
 
 
-def get(url, path):
+def get(url: str, path: str):
     '''
-    返回非 0 则失败?
+    使用 wget 或 curl 下载文件
+    > 返回非 0 则失败?
+
+    :param url: 文件 url
+    :param path: 将保存到的路径 (包括文件名)
     '''
     if testcmd('wget --version'):
         cmd = f'wget -O {path} {url}'
@@ -38,15 +40,24 @@ def get(url, path):
         raise Exception(f'Download file {url} to {path} failed! (Return code: {ret})')
 
 
-def getpth(path=''):
+def getpth(path: str = '') -> str:
     '''
     获取绝对路径
+
+    :param path: 相对路径
+    :return: `os.path.join()` 后的结果
     '''
     ret = os.path.join(base, path)
     return ret
 
 
-def unzip(zipfile, cwd=None):
+def unzip(zipfile: str, cwd: str = None) -> str:
+    '''
+    调用 unzip 命令解压 zip 文件
+
+    :param zipfile: zip 文件名
+    :param cwd: 执行命令的目录
+    '''
     if not cwd:
         cwd = getpth()
     ret = os.system(f'cd {cwd} && unzip -o {zipfile}')
@@ -54,39 +65,42 @@ def unzip(zipfile, cwd=None):
         raise Exception(f'Unzip {zipfile} failed! (working: {cwd}, return: {ret})')
 
 
-def copy(src, dst):
+def copy(src: str, dst: str) -> str:
     ret = os.system(f'cp {src} {dst}')
     if ret:
         raise Exception(f'Copy {src} to {dst} failed!')
 
 
-def user_input(name, desc, default):
+def user_input(name: str, place: str, desc: str, default: str, file: str) -> str:
+    '''
+    获取用户输入, 并替换文件中的 Placeholder (用 `''` 包裹)
+
+    :param name: 显示给用户的名称
+    :param place: 将被替换的值
+    :param desc: 显示给用户的描述
+    :param default: 用户未填写时返回的默认值
+    :param file: 文件内容的字符串
+    :return: 替换后的字符串
+    '''
     print(f'[Input] {name}: {desc} / 默认: {default}')
     ret = input(f'> {name}: ')
     if not ret:
         ret = default
-    return ret
-
-
-def replace(value: str, before, after):
-    '''
-    before = aaa, after = bbb:
-    'aaa' -> 'bbb'
-    '''
-    before = f"'{before}'"
-    after = f"'{after}'"
-    return value.replace(before, after)
+    before = f"'{place}'"
+    after = f"'{ret}'"
+    return file.replace(before, after)
 
 
 def main():
-    branch = 'main'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个
+    branch = 'dev'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个
     print(f'''
+[INSTALL]
 Serv00 Daemon Installer
 https://github.com/siiway/serv00-daemon/blob/{branch}/script/install-daemon.py
 Repo: siiway/serv00-daemon
 Give a Star ⭐ please~
-[TIP] 安装 pm2 和依赖 (using pip) 的耗时可能较长, 请耐心等待~
-[TIP] 如出现问题请 Issue: https://github.com/siiway/serv00-daemon/issues/new
+[TIP] 安装 pm2 和依赖 (python) 的耗时可能较长, 请耐心等待~
+[TIP] 如遇到无法解决的问题请 Issue: https://github.com/siiway/serv00-daemon/issues/new
 ''')
     print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
     global base
@@ -122,18 +136,13 @@ Give a Star ⭐ please~
     with open(configpth, mode='r', encoding='utf-8') as f:
         file = f.read()
         f.close()
-    DaemonKey = user_input(name='DaemonKey', desc='访问时需要携带的 key (妥善保管)', default=uuid())
-    print(f'设置的 key: {DaemonKey}')
-    DaemonCommand = user_input(name='DaemonCommand', desc='访问时需要执行的命令', default='pm2 resurrect')
-    LogFile = user_input(name='LogFile', desc='日志文件的路径', default='/dev/null')
+    file = user_input(name='DaemonKey', place='DaemonKey_Placeholder', desc='访问时需要携带的 key (妥善保管)', default=uuid(), file=file)
+    file = user_input(name='DaemonCommand', place='DaemonCommand_Placeholder', desc='访问时需要执行的命令', default='pm2 resurrect', file=file)
+    file = user_input(name='LogFile', place='LogFile_Placeholder', desc='日志文件的路径', default='/dev/null', file=file)
     print('[Tip] 配置免密登录: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#ssh-免密登录')
-    SSHCommand = user_input(name='SSHCommand', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost "devil info account"')
-    WebhookUrl = user_input('WebhookUrl', desc='Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送', default='')
-    file = replace(file, 'DaemonKey_Placeholder', DaemonKey)
-    file = replace(file, 'DaemonCommand_Placeholder', DaemonCommand)
-    file = replace(file, 'LogFile_Placeholder', LogFile)
-    file = replace(file, 'SSHCommand_Placeholder', SSHCommand)
-    file = replace(file, 'WebhookUrl_Placeholder', WebhookUrl)
+    file = user_input(name='SSHCommand', place='SSHCommand_Placeholder', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost "devil info account"', file=file)
+    file = user_input(name='WebhookUrl', place='WebhookUrl_Placeholder', desc='Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送', default='', file=file)
+    file = user_input(name='Timezone', place='Timezone_Placeholder', desc='消息中显示时间的时区', default='Asia/Shanghai')
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()
