@@ -44,7 +44,7 @@ def hook(result: str) -> tuple[int, str]:
         date2 = datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S')
         days_left = (date2-date1).days
     except:
-        pass
+        days_left = '[get days left failed]'
     # pm2 status
     try:
         pm2_status = subprocess.check_output(["pm2", "status"]).decode().strip()
