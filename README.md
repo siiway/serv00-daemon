@@ -52,7 +52,7 @@ pm2 --version
 
 一行命令:
 ```shell
-mkdir ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa cat id_rsa.pub >> authorized_keys
+mkdir ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cat id_rsa.pub >> authorized_keys
 ```
 
 ```shell
