@@ -50,6 +50,11 @@ pm2 --version
 
 ## SSH 免密登录
 
+一行命令:
+```shell
+mkdir ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa cat id_rsa.pub >> authorized_keys
+```
+
 ```shell
 # 0. 切目录到 User Directory/.ssh, 没有就 mkdir ~/.ssh 创建后再 cd
 cd ~/.ssh
