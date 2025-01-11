@@ -21,6 +21,10 @@ def hook(result: str) -> tuple[int, str]:
     '''
     url = config.WEBHOOK_URL
 
+    # 判断是否启用
+    if not url:
+        return 0, 'Hook Disabled'
+
     # 构造消息
     # user
     try:
@@ -61,5 +65,8 @@ def hook(result: str) -> tuple[int, str]:
 ```
 '''
     webhook = DiscordWebhook(url=url, content=message)
-    response = webhook.execute()
+    try:
+        response = webhook.execute()
+    except Exception as e:
+        return -1, f'{e}'
     return response.status_code, response.text

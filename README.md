@@ -27,7 +27,9 @@ Serv00 自动续期有两种方案:
 4. 最! 后! 本项目自动登录的推送功能单独拆分为一个文件, 方便修改; ~~内置 Discord 推送, 比 tg 更好注册, 而且多频道/权限组与 tg 相比更加强大!~~
 5. 好吧编不出来了( ~~总之用它就对了!~~
 
-## 准备工作
+## 部署
+
+<!--
 
 如果没有 PM2, 则用下面的脚本安装:
 
@@ -40,7 +42,13 @@ pm2 --version
 # 如正常, 应显示版本号如 5.4.3
 ```
 
+
+-->
+本项目使用 pm2 作为进程管理工具，在使用前请先了解 [pm2 的基本使用方法](https://www.cnblogs.com/chyingp/p/pm2-documentation.html) (很简单)
+
 > [什么? 你不知道pm2是啥?](https://www.bing.com/search?q=%E4%BB%80%E4%B9%88%E6%98%AFpm2)
+
+> 部署稍为麻烦，如出现问题建议 [在此](https://wyf9.top/#/contact) 联系解决
 
 ## SSH 免密登录
 
@@ -48,6 +56,10 @@ pm2 --version
 ```shell
 mkdir ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cat id_rsa.pub >> authorized_keys
 ```
+
+> [!IMPORTANT]
+> 在 `ssh-keygen` 生成密钥时请直接回车 *(不要多)* 使用默认值，不要更改默认保存位置和
+
 
 ```shell
 # 0. 切目录到 User Directory/.ssh, 没有就 mkdir ~/.ssh 创建后再 cd
@@ -75,15 +87,15 @@ ssh localhost
 wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-daemon.py && python3 install-daemon.py && rm install-daemon.py
 ```
 
-> ~~不会自动安装 pm2, 如没有请找 [前面](#准备工作) 的脚本安装 pm2 再使用.~~ 如果没有安装 pm2 会自动下载脚本并安装.
+> 如果没有安装 pm2 会自动下载[脚本](https://github.com/siiway/serv00-daemon/blob/main/script/install-pm2.sh)并安装.
 
 在安装过程中会询问下面的信息 *(不填回车就是默认)*:
 
 - DaemonKey (`访问时需要携带的 key (妥善保管)`): 其实就是类似于密钥一类的东西, 默认随机生成一个[uuid](https://www.bing.com/search?q=uuid)
 - DaemonCommand (`访问时需要执行的命令`): ← 在 pm2 中为 `pm2 resurrect`, 也是本项默认值
-  * 这个命令不太清楚, 但能用就行 (如果pm2没启动就会~~启动pm2(?)~~自启并恢复应用)
+  * 这个命令不太清楚, 但能用就行 (如果pm2没启动就会恢复进程，启动了什么都不做)
   * 使用pm2记得作更改后用 `pm2 save` 保存到 dump 文件，否则重启会丢失!
-- LogFile (`日志文件的路径`): 也是顾名思义, 默认是 `/dev/null`, 就是不保存日志
+- LogFile (`日志文件的路径`): 也是顾名思义, 默认是 `/dev/null`, 即不保存日志
 - SSHCommand (`ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可`): ← 不想创建公钥可以用 `sshpass -p "你的密码" ssh localhost "devil info account"`
 - WebhookUrl (`Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送`): ← 我自认为我已经说得很清楚了
 - Timezone (`消息中显示时间的时区`): 类似 [`Asia/Shanghai`](https://www.bing.com/search?q=Asia%2FShanghai) 的时区字符串, 在处理 Webhook 消息时会将时间转换到目标时区
@@ -104,8 +116,8 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 虽然简单, 但这也是**最重要**的一步, 它决定了你的 Daemon 如何定时触发
 
-
-> 继续之前, 在你的 Devil 控制面板重启网站.
+> [!IMPORTANT]
+> 继续之前, 在你的 Devil 控制面板重启网站. <br/>
 > 在这里我使用 [UptimeRobot](https://dashboard.uptimerobot.com/) 作演示, 也可选择其他类似的 url 监测平台
 
 1. 注册, 登录
@@ -149,7 +161,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
 
-这个 → 是搬运不带原文链接的，建议看评论：https://bs.openface.cc/2024/06/serv00.html
+这个是搬运不带原文链接的，建议看评论 → https://bs.openface.cc/2024/06/serv00.html
 
 ![openface-cc-copyarticlenoref](img/openface-cc-copyarticlenoref.png)
 
