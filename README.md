@@ -152,9 +152,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
 
-这个是搬运不带原文链接的，建议看评论 → https://bs.openface.cc/2024/06/serv00.html
-
-![openface-cc-copyarticlenoref](img/openface-cc-copyarticlenoref.png)
+这个是搬运不带原文链接的，建议看评论 → https://bs.openface.cc/2024/06/serv00.html [[Archive](https://web.archive.org/web/20250114132932/https://bs.openface.cc/2024/06/serv00.html)]
 
 https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
 
