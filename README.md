@@ -54,7 +54,7 @@ pm2 --version
 
 > 部署稍为麻烦，如出现问题建议 [在此](https://wyf9.top/#/contact) 联系解决
 
-## SSH 免密登录
+### SSH 免密登录
 
 一行命令:
 ```shell
@@ -62,8 +62,10 @@ mkdir ~/.ssh && cd ~/.ssh && ssh-keygen -t rsa && cat id_rsa.pub >> authorized_k
 ```
 
 > [!IMPORTANT]
-> 在 `ssh-keygen` 生成密钥时请直接回车 *(不要多)* 使用默认值，不要更改默认保存位置和
+> 在 `ssh-keygen` 生成密钥时请直接回车 *(不要多)* 使用默认值，不要更改默认保存位置，且请使用空密码以便直接使用
 
+<details>
+<summary>这行命令会做什么</summary>
 
 ```shell
 # 0. 切目录到 User Directory/.ssh, 没有就 mkdir ~/.ssh 创建后再 cd
@@ -84,6 +86,8 @@ cat id_rsa.pub >> authorized_keys
 # 4. 测试效果
 ssh localhost
 ```
+
+</details>
 
 ## 安装
 
