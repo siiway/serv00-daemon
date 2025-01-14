@@ -1,6 +1,5 @@
 # coding: utf-8
 # GitHub siiway/serv00-daemon - /script/install-daemon.py
-# by wyf9. / **抄袭不标出处是一种可耻的行为** / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
 
 import os
 import sys
@@ -117,7 +116,7 @@ def main():
 [INSTALL]
 Serv00 Daemon Installer
 https://github.com/siiway/serv00-daemon/blob/{dev_branch}/script/install-daemon.py
-Repo: siiway/serv00-daemon
+Repo: siiway/serv00-daemon / Under MIT License
 Give a Star ⭐ please~
 [TIP] 安装 pm2 和依赖 (python) 的耗时可能较长, 请耐心等待~
 [TIP] 如遇到无法解决的问题请 Issue: https://github.com/siiway/serv00-daemon/issues/new
@@ -175,7 +174,6 @@ Give a Star ⭐ please~
     print('[Tip] 配置免密登录: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#ssh-免密登录')
     file = user_input(name='SSHCommand', place='SSHCommand_Placeholder', desc='ssh 连接命令, 如不想创建公钥可以使用 sshpass, 否则默认即可', default='ssh localhost "devil info account"', file=file)
     file = user_input(name='WebhookUrl', place='WebhookUrl_Placeholder', desc='Discord 的 Webhook URL (在 编辑频道 > 整合 > Webhook 创建), 为空禁用推送', default='', file=file)
-    file = user_input(name='Timezone', place='Timezone_Placeholder', desc='消息中显示时间的时区', default='Asia/Shanghai', file=file)
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()

@@ -157,3 +157,5 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 ![openface-cc-copyarticlenoref](img/openface-cc-copyarticlenoref.png)
 
 https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
+
+本项目使用 MIT 作为 LICENSE. ~~im not @ygkkk~~
