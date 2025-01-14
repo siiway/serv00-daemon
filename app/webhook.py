@@ -2,7 +2,7 @@
 # webhook.py: 自定义 Webhook 提醒
 
 import subprocess
-from discord_webhook import DiscordWebhook
+from discord_webhook import DiscordWebhook  # type: ignore
 import datetime
 import pytz
 
@@ -54,17 +54,45 @@ def hook(result: str) -> tuple[int, str]:
         pm2_status = subprocess.check_output(["pm2", "status"]).decode().strip()
     except:
         pm2_status = '[get pm2 status failed]'
-    # build msg
-    message = f'''***{time}** ({config.TIMEZONE}) - Serv00 Auto Renew Completed!*
-> **Hostname**: `{hostname}`
-> **User**: `{user}`
-> **Expire time**: {result} - **`{days_left}` day(s) left**
-```text
-# pm2 status
-{pm2_status}
-```
-'''
-    webhook = DiscordWebhook(url=url, content=message)
+    # build embeds
+    embeds = [
+        {
+            'title': f'[**{user}**] **Serv00 Auto Renew Completed!**',
+            'fields': [
+                {
+                    'name': 'Time',
+                    'value': time,
+                    'inline': True
+                },
+                {
+                    'name': 'Hostname',
+                    'value': hostname,
+                    'inline': True
+                },
+                {
+                    'name': 'User',
+                    'value': user,
+                    'inline': True
+                },
+                {
+                    'name': 'Result',
+                    'value': result,
+                    'inline': True
+                },
+                {
+                    'name': 'Days left',
+                    'value': f'**{days_left}**',
+                    'inline': True
+                },
+                {
+                    'name': 'PM2 Status',
+                    'value': f'```\n{pm2_status}\n```',
+                    'inline': False
+                }
+            ]
+        }
+    ]
+    webhook = DiscordWebhook(url=url, embeds=embeds)
     try:
         response = webhook.execute()
     except Exception as e:

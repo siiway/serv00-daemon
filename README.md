@@ -1,5 +1,7 @@
 # serv00-daemon
 
+> 来投个票? `>` **[discussion#3](https://github.com/siiway/serv00-daemon/discussions/3)** `<`
+
 基于 Python WWW Pages 的 Serv00 Daemon, 实现进程保活/自动保号
 
 ## 功能
@@ -26,6 +28,8 @@ Serv00 自动续期有两种方案:
 3.5. 因为使用 Serv00 面板自带的网站功能, 可以保证本 Daemon 的自启而不会被杀掉, 更加稳定
 4. 最! 后! 本项目自动登录的推送功能单独拆分为一个文件, 方便修改; ~~内置 Discord 推送, 比 tg 更好注册, 而且多频道/权限组与 tg 相比更加强大!~~
 5. 好吧编不出来了( ~~总之用它就对了!~~
+
+> *上面这段就是凌晨写的，懒得改了*
 
 ## 部署
 
