@@ -3,12 +3,26 @@
 # by wyf9. / **抄袭不标出处是一种可耻的行为** / https://github.com/siiway/serv00-daemon/blob/968ef1b4d45a4a9c51db9216c506288ed4bb5e14/script/install-pm2-saika-nobase64.sh#L12
 
 import os
+import sys
 from uuid import uuid4 as uuid
 
 # ----- for dev testing
+# bypass all: wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-daemon.py && python3 install-daemon.py bypass-pm2 bypass-dep && rm install-daemon.py
 dev_branch = 'main'  # 当在 dev 分支调试安装脚本时我是崩溃的，所以又加了这个 (可以写 commit id, 好诶)
 dev_bypass_install_pm2 = False
 dev_bypass_install_dep = False
+for i in sys.argv:
+    if i == 'bypass-pm2':
+        dev_bypass_install_pm2 = True
+    elif i == 'bypass-dep':
+        dev_bypass_install_dep = True
+# ----- dev warn
+if dev_branch != 'main':
+    print(f'[WARNING] Selecred branch: {dev_branch}')
+if dev_bypass_install_pm2:
+    print(f'[WARNING] Will bypass PM2 install.')
+if dev_bypass_install_dep:
+    print(f'[WARNING] Will bypass deps install.')
 # -----
 
 

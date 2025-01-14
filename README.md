@@ -33,24 +33,7 @@ Serv00 自动续期有两种方案:
 
 ## 部署
 
-<!--
-
-如果没有 PM2, 则用下面的脚本安装:
-
-```bash
-# 从 GitHub 下载脚本 (本 repo 的 /pm2/install-pm2.sh)
-bash <(curl -s https://raw.githubusercontent.com/siiway/serv00-daemon/main/script/install-pm2.sh)
-
-# 测试安装:
-pm2 --version
-# 如正常, 应显示版本号如 5.4.3
-```
-
-
--->
 本项目使用 pm2 作为进程管理工具，在使用前请先了解 [pm2 的基本使用方法](https://www.cnblogs.com/chyingp/p/pm2-documentation.html) (很简单)
-
-> [什么? 你不知道pm2是啥?](https://www.bing.com/search?q=%E4%BB%80%E4%B9%88%E6%98%AFpm2)
 
 > 部署稍为麻烦，如出现问题建议 [在此](https://wyf9.top/#/contact) 联系解决
 
