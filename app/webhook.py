@@ -4,7 +4,6 @@
 import subprocess
 from discord_webhook import DiscordWebhook  # type: ignore
 import datetime
-import pytz
 
 import config
 
@@ -37,18 +36,15 @@ def hook(result: str) -> tuple[int, str]:
     except:
         hostname = '[get hostname failed]'
     # time now
-    try:
-        time = datetime.datetime.now(pytz.timezone(config.TIMEZONE)).strftime('%Y-%m-%d %H:%M:%S')
-    except pytz.UnknownTimeZoneError:
-        time = datetime.datetime.now(pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
-        config.TIMEZONE = 'Asia/Shanghai [**Invaild timezone in config**]'
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     # days left
     try:
         date1 = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
         date2 = datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S')
-        days_left = (date2-date1).days
+        time_str = f'<t:{date1.timestamp()}:f> - <t:{date1.timestamp()}:R>'
+        expire_str = f'<t:{date2.timestamp()}:f> - <t:{date2.timestamp()}:R>'
     except:
-        days_left = '[get days left failed]'
+        expire_str = '[get expire failed]'
     # pm2 status
     try:
         pm2_status = subprocess.check_output(["pm2", "status"]).decode().strip()
@@ -61,7 +57,7 @@ def hook(result: str) -> tuple[int, str]:
             'fields': [
                 {
                     'name': 'Time',
-                    'value': time,
+                    'value': time_str,
                     'inline': True
                 },
                 {
@@ -80,8 +76,8 @@ def hook(result: str) -> tuple[int, str]:
                     'inline': True
                 },
                 {
-                    'name': 'Days left',
-                    'value': f'**{days_left}**',
+                    'name': 'Expire',
+                    'value': expire_str,
                     'inline': True
                 },
                 {

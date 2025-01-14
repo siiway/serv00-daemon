@@ -38,12 +38,7 @@ def login(command) -> str:
             result = match.group(1)
             # convert timezone
             result = datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S')
-            try:
-                result = pytz.timezone(config.TIMEZONE).localize(result)
-            except pytz.UnknownTimeZoneError:
-                result = f'{pytz.timezone(config.TIMEZONE).localize(result)}'
-            result = str(result).split('+')[0]
-            log += f'\nExpire date now: {result}'
+            log += f'\nExpire date now: {result.timestamp()}'
         else:
             result = 'Failed to parse expiration date'
             log += f'Failed to parse expiration date\nOriginal output (stdout):\n---\n{stdout}\n'

@@ -11,5 +11,3 @@ LOG_FILE = 'LogFile_Placeholder'
 SSH_COMMAND = 'SSHCommand_Placeholder'
 # Discord Webhook URL
 WEBHOOK_URL = 'WebhookUrl_Placeholder'
-# Webhook 推送时显示的时区, `洲/城市` (自行搜索 pytz 库用法), 一般用 `Asia/Shanghai` (北京时间, UTC + 8) 或 `UTC` (即 +0, 北京时间 - 8)
-TIMEZONE = 'Timezone_Placeholder'
