@@ -39,11 +39,12 @@ def hook(result: str) -> tuple[int, str]:
     time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     # days left
     try:
-        date1 = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
-        date2 = datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S')
-        time_str = f'<t:{date1.timestamp()}:f> - <t:{date1.timestamp()}:R>'
-        expire_str = f'<t:{date2.timestamp()}:f> - <t:{date2.timestamp()}:R>'
+        date1 = int(datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S').timestamp())
+        date2 = int(datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S').timestamp())
+        time_str = f'<t:{date1}:f> - <t:{date1}:R>'
+        expire_str = f'<t:{date2}:f> - <t:{date2}:R>'
     except:
+        time_str = '[get time failed]'
         expire_str = '[get expire failed]'
     # pm2 status
     try:

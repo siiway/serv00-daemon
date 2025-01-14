@@ -143,7 +143,7 @@ Give a Star ⭐ please~
     # --- 0. dep
     if not dev_bypass_install_dep:
         print('Step 0: 安装依赖')
-        install_dep_command = 'pip install flask discord-webhook pytz'
+        install_dep_command = 'pip install flask discord-webhook'
         ret = os.system(install_dep_command)
         if ret:
             raise Exception(f'安装依赖命令 {install_dep_command} 返回不为 0: {ret}')

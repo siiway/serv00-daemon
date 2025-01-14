@@ -92,13 +92,12 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 - Timezone (`消息中显示时间的时区`): 类似 [`Asia/Shanghai`](https://www.bing.com/search?q=Asia%2FShanghai) 的时区字符串, 在处理 Webhook 消息时会将时间转换到目标时区
 
 > [!NOTE]
-> 如果报错找不到库, 请手动安装: `pip install flask discord-webhook pytz`
+> 如果报错找不到库, 请手动安装: `pip install flask discord-webhook`
 
 ```md
 ### 依赖来源
   - **flask**: `application.py`
   - **discord-webhook**: `webhook.py`
-  - **pytz**: `webhook.py`, `application.py`
 ```
 
 ## 继续

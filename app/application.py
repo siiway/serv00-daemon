@@ -9,7 +9,6 @@ devil www restart daemon.wyf9.serv00.net
 import flask
 import subprocess
 import datetime
-import pytz
 
 import indexpage
 import config

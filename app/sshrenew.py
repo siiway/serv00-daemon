@@ -11,10 +11,8 @@
 import subprocess
 import re
 import datetime
-import pytz
 
 import webhook
-import config
 
 
 def login(command) -> str:
@@ -37,8 +35,8 @@ def login(command) -> str:
         if match:
             result = match.group(1)
             # convert timezone
-            result = datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S')
-            log += f'\nExpire date now: {result.timestamp()}'
+            result = int(datetime.datetime.strptime(result, '%Y-%m-%d %H:%M:%S').timestamp())
+            log += f'\nExpire date now: {result}'
         else:
             result = 'Failed to parse expiration date'
             log += f'Failed to parse expiration date\nOriginal output (stdout):\n---\n{stdout}\n'
