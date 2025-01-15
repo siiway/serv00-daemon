@@ -112,28 +112,34 @@ def user_input(name: str, place: str, desc: str, default: str, file: str) -> str
 
 
 def main():
+    '''
+    Main Installer
+    '''
     # --- banner
     print(f'''
-[INSTALL]
+[WELCOME]
 Serv00 Daemon Installer
 https://github.com/siiway/serv00-daemon/blob/{dev_branch}/script/install-daemon.py
-Repo: siiway/serv00-daemon / Under MIT License
+Repo: siiway/serv00-daemon / Under MIT License: https://github.com/siiway/serv00-daemon/blob/main/LICENSE
 Give a Star ⭐ please~
 [TIP] 安装 pm2 和依赖 (python) 的耗时可能较长, 请耐心等待~
 [TIP] 如遇到无法解决的问题请 Issue: https://github.com/siiway/serv00-daemon/issues/new
 ''')
-    # --- get basepath
-    callproc = subprocess.Popen('devil www list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-    try:
-        websites, stderr = callproc.communicate(timeout=10)
-    except Exception as e:
-        print(f'获取网站列表失败: {e}, 不用担心, 你仍然可以继续安装.')
-        websites = ''
-    else:
-        print(f'已有的网站列表: \n{websites}')
-    print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
+
+    # --- -1. where
     global base
     while True:
+        # --- show websites
+        callproc = subprocess.Popen('devil www list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            websites, stderr = callproc.communicate(timeout=10)
+        except Exception as e:
+            print(f'获取网站列表失败: {e}, 不用担心, 你仍然可以继续安装.')
+            websites = ''
+        else:
+            print(f'已有的网站列表: \n{websites}')
+        # --- get basepath
+        print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
         base = input('> ')
         if os.path.exists(base):
             pass
@@ -169,7 +175,6 @@ Give a Star ⭐ please~
             raise Exception(f'安装依赖命令 {install_dep_command} 返回不为 0: {ret}')
     # --- 1. dl repo
     print('Step 1: 下载 repo')
-    # get(f'https://github.com/siiway/serv00-daemon/archive/refs/heads/{branch}.zip', getpth('code.zip'))
     get(f'https://github.com/siiway/serv00-daemon/archive/{dev_branch}.zip', getpth('code.zip'))
     # --- 2. unzip
     print('Step 2: 解压代码')
@@ -182,12 +187,11 @@ Give a Star ⭐ please~
     # --- 4. config
     print('Step 4: 初始配置')
     configpth = getpth("public_python/config.py")
-    print(f'[Tip] 可以稍后编辑 {configpth} 以修改配置.')
     file = ''
     with open(configpth, mode='r', encoding='utf-8') as f:
         file = f.read()
         f.close()
-    # file = user_input(name='', place='', desc='', default='',file=file)
+    # file = user_input(name='', place='', desc='', default='', file=file)
     file = user_input(name='DaemonKey', place='DaemonKey_Placeholder', desc='访问时需要携带的 key (妥善保管)', default=uuid(), file=file)
     file = user_input(name='DaemonCommand', place='DaemonCommand_Placeholder', desc='访问时需要执行的命令', default='pm2 resurrect', file=file)
     file = user_input(name='LogFile', place='LogFile_Placeholder', desc='日志文件的路径', default='/dev/null', file=file)
@@ -197,20 +201,21 @@ Give a Star ⭐ please~
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()
+    print(f'[Tip] 配置已保存，可以稍后编辑 {configpth} 以修改.')
     return 0
 
 
 if __name__ == '__main__':
     try:
         ret = main()
+        if not ret:
+            # √
+            print('安装成功!')
+            print('Visit: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#继续')
+            print()
     except KeyboardInterrupt:
         print('检测到 ^C 输入, 退出安装')
         exit()
     except Exception as e:
         print(f'安装脚本出错! {e}')
         print('如无法自行解决问题, 请到 repo 提交 issue, 或联系作者获取进一步支持.')
-    if not ret:
-        # √
-        print('安装成功!')
-        print('Visit: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#继续')
-        print()
