@@ -2,6 +2,7 @@
 # GitHub siiway/serv00-daemon - /script/install-daemon.py
 
 import os
+import subprocess
 import sys
 from uuid import uuid4 as uuid
 
@@ -122,14 +123,31 @@ Give a Star ⭐ please~
 [TIP] 如遇到无法解决的问题请 Issue: https://github.com/siiway/serv00-daemon/issues/new
 ''')
     # --- get basepath
+    callproc = subprocess.Popen('devil www list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    try:
+        websites, stderr = callproc.communicate(timeout=10)
+    except Exception as e:
+        print(f'获取网站列表失败: {e}, 不用担心, 你仍然可以继续安装.')
+        websites = ''
+    else:
+        print(f'已有的网站列表: \n{websites}')
     print('请在 Devil 控制面板 (s*.serv00.com) 创建一个 Python 项目, \n[Input] 并在此输入路径 (如 "/home/wyf9/domains/daemon.wyf9.serv00.net/"):')
     global base
     while True:
         base = input('> ')
         if os.path.exists(base):
             break
+        elif base in websites:
+            os.makedirs(base, exist_ok=True)
         else:
             print('目录不存在, 请重新输入 (访问 https://panel*.serv00.com/www/ 创建, * 为你的面板编号)')
+    # --- 0. clear
+    okis = input(f'[WARNING] 将删除现有的网站文件 ({base}), 是否继续? (Y/n)')
+    if okis.lower() == 'n' or okis.lower() == 'no' or (not okis):
+        print('取消安装.')
+        return 1
+    os.removedirs(base)
+    os.mkdir(base)
     # --- 1. pm2
     if not dev_bypass_install_pm2:
         print('\nStep -1: 检查 pm2')
@@ -177,11 +195,20 @@ Give a Star ⭐ please~
     with open(configpth, mode='w', encoding='utf-8') as f:
         f.write(file)
         f.close()
+    return 0
 
 
 if __name__ == '__main__':
-    main()
-    # √
-    print('安装成功!')
-    print('Visit: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#继续')
-    print()
+    try:
+        ret = main()
+    except KeyboardInterrupt:
+        print('检测到 ^C 输入, 退出安装')
+        exit()
+    except Exception as e:
+        print(f'安装脚本出错! {e}')
+        print('如无法自行解决问题, 请到 repo 提交 issue, 或联系作者获取进一步支持.')
+    if not ret:
+        # √
+        print('安装成功!')
+        print('Visit: https://github.com/siiway/serv00-daemon?tab=readme-ov-file#继续')
+        print()
