@@ -136,13 +136,15 @@ Give a Star ⭐ please~
     while True:
         base = input('> ')
         if os.path.exists(base):
-            break
+            pass
         elif base in websites:
             os.makedirs(base, exist_ok=True)
         else:
             print('目录不存在, 请重新输入 (访问 https://panel*.serv00.com/www/ 创建, * 为你的面板编号)')
+            continue
+        break
     # --- 0. clear
-    okis = input(f'[WARNING] 将删除现有的网站文件 ({base}), 是否继续? (Y/n)')
+    okis = input(f'[WARNING] 将删除现有的网站文件 ({base}), 是否继续? (Y/n) > ')
     if okis.lower() == 'n' or okis.lower() == 'no' or (not okis):
         print('取消安装.')
         return 1
