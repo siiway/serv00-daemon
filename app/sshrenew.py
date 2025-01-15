@@ -29,7 +29,7 @@ def login(command) -> str:
         callproc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # 读取输出和错误信息
-        stdout, stderr = callproc.communicate(timeout=30)
+        stdout, stderr = callproc.communicate(timeout=60)
         pattern = r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})'
         match = re.search(pattern, stdout)
         if match:
@@ -47,7 +47,7 @@ def login(command) -> str:
     except Exception as e:
         result = f'Error executing command: {str(e)}'
         log += f'ERROR executing command: {str(e)}\n'
-
-    hookcode, hookresp = webhook.hook(result=result)
+    print(f'result: `{result}`')
+    hookcode, hookresp = webhook.hook(result=str(result))
     log += f'\nWebhook response: {hookcode}\n{hookresp}'
     return log
