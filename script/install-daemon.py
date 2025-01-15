@@ -4,6 +4,7 @@
 import os
 import subprocess
 import sys
+import shutil
 from uuid import uuid4 as uuid
 
 # ----- for dev testing
@@ -154,7 +155,7 @@ Give a Star ⭐ please~
     if okis.lower() == 'n' or okis.lower() == 'no' or (not okis):
         print('取消安装.')
         return 1
-    os.removedirs(base)
+    shutil.rmtree(base)
     os.mkdir(base)
     # --- 1. pm2
     if not dev_bypass_install_pm2:
