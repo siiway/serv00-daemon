@@ -10,7 +10,7 @@
 
 ## 手把手教程
 
-如果觉得看不懂，可以参考 [我在 Linux DO 站发布的帖子](https://linux.do/t/topic/491153)
+如果觉得看不懂，可以参考 [我在 Linux DO 站发布的帖子](https://linux.do/t/topic/491153?u=wyf9)
 
 有详细的部署教程和配图，更建议小白阅读~
 
@@ -22,8 +22,7 @@
 ## Why this project?
 
 > [!WARNING]
-> *声明: 这一段(甚至大部分readme)都是在凌晨写的 ([不信看commit](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd)), 部分内容**可能有争议/错误**, 请勿开骂qwq*
-> *update: 其实是用两个凌晨写的 (24-11-30, 24-12-1) [commit](https://github.com/siiway/serv00-daemon/commit/d85171835d49f83575afd71dff4813ee06bb4d7b)*
+> *声明: 这一段(甚至大部分readme)都是在凌晨写的 (不信看 [commit (24-11-30)](https://github.com/siiway/serv00-daemon/commit/fbe465b0d7faefbaa0bfa1e5dd2dcd6f954ef6bd) 和 [commit (24-12-01)](https://github.com/siiway/serv00-daemon/commit/d85171835d49f83575afd71dff4813ee06bb4d7b)), 部分内容**可能有争议/错误**, 请勿开骂qwq*
 
 Serv00 自动续期有两种方案:
 
@@ -39,11 +38,7 @@ Serv00 自动续期有两种方案:
 4. 最! 后! 本项目自动登录的推送功能单独拆分为一个文件, 方便修改; ~~内置 Discord 推送, 使用卡片渲染更加美观！~~
 5. 好吧编不出来了( ~~总之用它就对了!~~
 
-> *~~上面这段就是凌晨写的，改了一丢丢~~*
-
 本项目使用 pm2 作为进程管理工具，在使用前请先了解 [pm2 的基本使用方法](https://www.cnblogs.com/chyingp/p/pm2-documentation.html) 或自行搜索需要的用法 (很简单)
-
-> 部署稍为麻烦，如出现问题建议 [联系](https://wyf9.top/#/contact) 解决
 
 ### SSH 免密登录
 
@@ -114,7 +109,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 > [!IMPORTANT]
 > 继续之前, 在你的 Devil 控制面板重启网站. <br/>
 > 在这里我使用 [UptimeRobot](https://dashboard.uptimerobot.com/) 作演示, 也可选择其他类似的 url 监测平台 <br/>
-> 其实更推荐 cron-job.org, 全免费, 且相比 UptimeRobot 限制更少
+> 其实更推荐 cron-job.org, 全免费, 且相比 UptimeRobot 限制更少 (上面提到的 Linux DO 帖子中就使用了 cron-job.org 作演示)
 
 ### urls
 
@@ -161,7 +156,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
 
-这个是搬运不带原文链接的，建议看评论 → https://bs.openface.cc/2024/06/serv00.html [[Archive](https://web.archive.org/web/20250114132932/https://bs.openface.cc/2024/06/serv00.html)]
+这个是搬运不带原文链接的，建议看评论 → https://bs.openface.cc/2024/06/serv00.html [[Archive (25-01-14)](https://web.archive.org/web/20250114132932/https://bs.openface.cc/2024/06/serv00.html)]
 
 https://github.com/siiway/serv00-daemon/blob/d5359bf9d12d8758b8bb0ccb55610d23691e1233/script/install-pm2.sh#L13
 
