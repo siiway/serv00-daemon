@@ -152,7 +152,7 @@ wget -O install-daemon.py https://raw.githubusercontent.com/siiway/serv00-daemon
 
 ## End
 
-如果对此项目有建议/想法，可 [Issue](https://github.com/siiway/serv00-daemon/issues/new) 或 [More contact](https://wyf9.top/#/contact).
+如果对此项目有建议/想法，可 [Issue](https://github.com/siiway/serv00-daemon/issues/new) 或 [More contact](https://wyf9.top/t/c).
 
 在此推荐一篇 Serv00 应用部署教程 (上面pm2安装脚本作者的文章): https://saika.us.kg/2024/01/27/serv00_logs/
 
